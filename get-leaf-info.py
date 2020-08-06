@@ -15,7 +15,7 @@ found = parser.read(candidates)
 username = parser.get('get-leaf-info', 'username')
 password = parser.get('get-leaf-info', 'password')
 region = parser.get('get-leaf-info', 'region')
-sleepsecs = 30     # Time to wait before polling Nissan servers for update
+sleepsecs = 10     # Time to wait before polling Nissan servers for update
 
 
 def update_battery_status(leaf, wait_time=1):
