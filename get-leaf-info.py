@@ -31,22 +31,35 @@ def update_battery_status(leaf, wait_time=1):
 
 
 def print_info(info):
+
+    # info.charging_status possibilities:
+    #     "NORMAL_CHARGING" = charging on an L3 charger at home
+
     print("+----------------------------+-------------------+")
-    print("| Operation Date and Time    | %s" % info.answer["BatteryStatusRecords"]["OperationDateAndTime"])
-    print("| Notification Date and Time | %s" % info.answer["BatteryStatusRecords"]["NotificationDateAndTime"])
+    print("| Operation Date and Time    | {}".format(info.answer["BatteryStatusRecords"]["OperationDateAndTime"]))
+    print("| Notification Date and Time | {}".format(info.answer["BatteryStatusRecords"]["NotificationDateAndTime"]))
+    print("| Battery Capacity           | {}/{}".format(
+        info.battery_remaining_amount, info.battery_capacity))
+    print("| Charging Status            | {}".format(info.charging_status))
+    print("| Charging?                  | {}".format(info.is_charging))
+    print("| Connected                  | {}".format(info.is_connected))
+    batteryPercent = "| Battery Percent            | {}%".format(round(
+        info.battery_percent))
+    print(batteryPercent)
+    print("+----------------------------+-------------------+")
+
+    # Options that I stopped using:
+    
+    # print("| Battery Capacity           | %s" % info.battery_capacity)
+    # print("| Capacity Remaining         | %s" % info.battery_remaining_amount)
     # print("  battery_capacity2 %s" % info.answer["BatteryStatusRecords"]["BatteryStatus"]["BatteryCapacity"])
-    print("| Charging Status            | %s" % info.charging_status)
-    print("| Battery Capacity           | %s" % info.battery_capacity)
-    print("| Capacity Remaining         | %s" % info.battery_remaining_amount)
-    print("| Charging?                  | %s" % info.is_charging)
     # print("  is_quick_charging %s" % info.is_quick_charging)
     # print("  Connected?         | %s" % info.plugin_state)
-    print("| Connected                  | %s" % info.is_connected)
     # print("  is_connected_to_quick_charger %s" % info.is_connected_to_quick_charger)
     # print("  time_to_full_trickle %s" % info.time_to_full_trickle)
     # print("  time_to_full_l2            | %s" % info.time_to_full_l2)
     # print("  time_to_full_l2_6kw %s" % info.time_to_full_l2_6kw)
-    print("| Battery Percent            | %s" % info.battery_percent)
+    # print("| Battery Percent            | %s" % round(info.battery_percent))
     # print("  state_of_charge            | %s" % info.state_of_charge)
 
 
@@ -60,11 +73,11 @@ leaf = s.get_leaf()
 # Give the nissan servers a bit of a delay so that we don't get stale data
 time.sleep(1)
 
-# print("get_latest_battery_status from servers")
-# leaf_info = leaf.get_latest_battery_status()
-# start_date = leaf_info.answer["BatteryStatusRecords"]["OperationDateAndTime"]
-# print("start_date=", start_date)
-# print_info(leaf_info)
+print("get_latest_battery_status from servers")
+leaf_info = leaf.get_latest_battery_status()
+start_date = leaf_info.answer["BatteryStatusRecords"]["OperationDateAndTime"]
+print("start_date=", start_date)
+print_info(leaf_info)
 
 # Give the nissan servers a bit of a delay so that we don't get stale data
 time.sleep(1)
