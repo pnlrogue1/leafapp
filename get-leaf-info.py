@@ -31,6 +31,20 @@ args = argParser.parse_args()
 
 colour = args.colour
 
+# Set up the correct display and scaling factors
+
+if args.type == "phat":
+    inky_display = InkyPHAT(colour)
+    scale_size = 1
+    padding = 0
+elif args.type == "what":
+    inky_display = InkyWHAT(colour)
+    scale_size = 2.20
+    padding = 15
+
+# inky_display.set_rotation(180)
+
+
 def update_battery_status(leaf, wait_time=1):
     key = leaf.request_update()
     status = leaf.get_status_from_update(key)
