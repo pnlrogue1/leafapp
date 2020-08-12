@@ -20,6 +20,16 @@ password = configParser.get('get-leaf-info', 'password')
 region = configParser.get('get-leaf-info', 'region')
 sleepsecs = 10     # Time to wait before polling Nissan servers for update
 
+# Command line arguments to set Inky display type and colour
+
+argParser = argparse.ArgumentParser()
+argParser.add_argument('--type', '-t', type=str, required=True,
+                    choices=["what", "phat"], help="type of display")
+argParser.add_argument('--colour', '-c', type=str, required=True,
+                    choices=["red", "black", "yellow"], help="ePaper display colour")
+args = argParser.parse_args()
+
+colour = args.colour
 
 def update_battery_status(leaf, wait_time=1):
     key = leaf.request_update()
