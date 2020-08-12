@@ -36,8 +36,10 @@ def print_info(info):
     #     "NORMAL_CHARGING" = charging on an L3 charger at home
 
     print("+----------------------------+-------------------+")
-    print("| Operation Date and Time    | {}".format(info.answer["BatteryStatusRecords"]["OperationDateAndTime"]))
-    print("| Notification Date and Time | {}".format(info.answer["BatteryStatusRecords"]["NotificationDateAndTime"]))
+    print("| Operation Date and Time    | {}".format(
+        info.answer["BatteryStatusRecords"]["OperationDateAndTime"]))
+    print("| Notification Date and Time | {}".format(
+        info.answer["BatteryStatusRecords"]["NotificationDateAndTime"]))
     print("| Battery Capacity           | {}/{}".format(
         info.battery_remaining_amount, info.battery_capacity))
     print("| Charging Status            | {}".format(info.charging_status))
