@@ -78,7 +78,7 @@ def print_info(info):
     print("+----------------------------+-------------------+")
 
     # Options that I stopped using:
-    
+
     # print("| Battery Capacity           | %s" % info.battery_capacity)
     # print("| Capacity Remaining         | %s" % info.battery_remaining_amount)
     # print("  battery_capacity2 %s" % info.answer["BatteryStatusRecords"]["BatteryStatus"]["BatteryCapacity"])
@@ -120,6 +120,3 @@ latest_leaf_info = leaf.get_latest_battery_status()
 latest_date = latest_leaf_info.answer["BatteryStatusRecords"]["OperationDateAndTime"]
 print("latest_date=", latest_date)
 print_info(latest_leaf_info)
-
-
-
