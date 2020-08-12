@@ -1,20 +1,23 @@
 #!/usr/bin/env python
 
-import pycarwings2
 import time
-from configparser import ConfigParser
 import logging
 import sys
 
-# logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+import argparse
+import pycarwings2
+from configparser import ConfigParser
 
-parser = ConfigParser()
+from PIL import Image, ImageDraw
+from inky import InkyPHAT, InkyWHAT
+
+configParser = ConfigParser()
 candidates = ['config.ini', 'my_config.ini']
-found = parser.read(candidates)
+found = configParser.read(candidates)
 
-username = parser.get('get-leaf-info', 'username')
-password = parser.get('get-leaf-info', 'password')
-region = parser.get('get-leaf-info', 'region')
+username = configParser.get('get-leaf-info', 'username')
+password = configParser.get('get-leaf-info', 'password')
+region = configParser.get('get-leaf-info', 'region')
 sleepsecs = 10     # Time to wait before polling Nissan servers for update
 
 
