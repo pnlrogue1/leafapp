@@ -24,9 +24,9 @@ sleep_timer = 10  # Time to wait before polling Nissan servers for update
 
 argParser = argparse.ArgumentParser()
 argParser.add_argument('--type', '-t', type=str, required=True,
-                    choices=["what", "phat"], help="type of display")
+                       choices=["what", "phat"], help="type of display")
 argParser.add_argument('--colour', '-c', type=str, required=True,
-                    choices=["red", "black", "yellow"], help="ePaper display colour")
+                       choices=["red", "black", "yellow"], help="ePaper display colour")
 args = argParser.parse_args()
 
 colour = args.colour
@@ -45,6 +45,7 @@ elif args.type == "what":
     print("This script does not currently support the InkyWHAT. Sorry!")
     print("")
     exit()
+
 
 # inky_display.set_rotation(180)
 
@@ -66,7 +67,6 @@ def update_battery_status(leaf, wait_time=1):
 
 
 def print_info(info):
-
     # info.charging_status possibilities:
     #     "NORMAL_CHARGING" = charging on an L3 charger at home
 
