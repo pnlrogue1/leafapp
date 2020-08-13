@@ -138,8 +138,13 @@ query_battery_status(leaf, sleep_timer)
 latest_leaf_info = leaf.get_latest_battery_status()
 latest_date = latest_leaf_info.answer["BatteryStatusRecords"]["OperationDateAndTime"]
 
-if leaf_info.answer["BatteryStatusRecords"]["OperationDateAndTime"] == latest_date:
-    print("Didn't get new data from the car")
+while leaf_info.answer["BatteryStatusRecords"]["OperationDateAndTime"] == latest_date:
+    print("")
+    print("Didn't get new data from the car. Retrying...")
+    print("")
+    query_battery_status(leaf, sleep_timer)
+    latest_leaf_info = leaf.get_latest_battery_status()
+    latest_date = latest_leaf_info.answer["BatteryStatusRecords"]["OperationDateAndTime"]
 
 print("latest_date=", latest_date)
 print_info(latest_leaf_info)
