@@ -31,25 +31,13 @@ argParser.add_argument('--colour', '-c', type=str, required=True,
                        choices=["red", "black", "yellow"], help="ePaper display colour")
 args = argParser.parse_args()
 
-colour = args.colour
-
 # Set up the correct display and scaling factors
 
-if args.type == "phat":
-    inky_display = InkyPHAT(colour)
-    scale_size = 1
-    padding = 0
-elif args.type == "what":
-    inky_display = InkyWHAT(colour)
-    scale_size = 2.20
-    padding = 15
+if args.type == "what":
     print("")
     print("This script does not currently support the InkyWHAT. Sorry!")
     print("")
     exit()
-
-
-# inky_display.set_rotation(180)
 
 
 def update_battery_status(leaf, wait_time=1):
@@ -155,6 +143,19 @@ print("latest_date=", latest_date)
 print_info(latest_leaf_info)
 
 # Now for the e-ink display...
+
+colour = args.colour
+
+if args.type == "phat":
+    inky_display = InkyPHAT(colour)
+    scale_size = 1
+    padding = 0
+# elif args.type == "what":
+#     inky_display = InkyWHAT(colour)
+#     scale_size = 2.20
+#     padding = 15
+
+# inky_display.set_rotation(180)
 
 inky_display.set_border(inky_display.WHITE)
 
