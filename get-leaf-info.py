@@ -229,7 +229,7 @@ available_range_x = 0 + padding
 available_range_y = 28 + padding
 draw.text((available_range_x, available_range_y), "Available Range:", inky_display.WHITE, font=hanken_bold_font)
 
-current_range = "{}m".format(round(range_km * 0.62137))
+current_range = "{}m".format(round(latest_leaf_info.range_km * 0.62137))
 current_range_w, current_range_h = hanken_bold_font.getsize(current_range)
 current_range_x = int(available_range_w + 2)
 current_range_y = 28 + padding
