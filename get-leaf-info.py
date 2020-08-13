@@ -10,6 +10,8 @@ from configparser import ConfigParser
 
 from PIL import Image, ImageDraw
 from inky import InkyPHAT, InkyWHAT
+from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
+from font_intuitive import Intuitive
 
 configParser = ConfigParser()
 candidates = ['config.ini', 'my_config.ini']
