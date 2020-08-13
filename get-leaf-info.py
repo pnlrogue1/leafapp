@@ -18,7 +18,7 @@ found = configParser.read(candidates)
 username = configParser.get('get-leaf-info', 'username')
 password = configParser.get('get-leaf-info', 'password')
 region = configParser.get('get-leaf-info', 'region')
-sleepsecs = 10     # Time to wait before polling Nissan servers for update
+sleep_timer = 10  # Time to wait before polling Nissan servers for update
 
 # Command line arguments to set Inky display type and colour
 
@@ -50,14 +50,18 @@ elif args.type == "what":
 
 
 def update_battery_status(leaf, wait_time=1):
+    total_wait = 0
     key = leaf.request_update()
     status = leaf.get_status_from_update(key)
     # Currently the nissan servers eventually return status 200 from get_status_from_update(), previously
     # they did not, and it was necessary to check the date returned within get_latest_battery_status().
     while status is None:
-        print("Waiting {0} seconds".format(sleepsecs))
+        total_wait += sleep_timer
+        print("Waiting {0} seconds".format(sleep_timer))
         time.sleep(wait_time)
         status = leaf.get_status_from_update(key)
+        if status is None and total_wait >= 60:
+            status = 99
     return status
 
 
@@ -96,6 +100,13 @@ def print_info(info):
     # print("  state_of_charge            | %s" % info.state_of_charge)
 
 
+def query_battery_status(my_leaf, sleep_timer):
+    update_status = update_battery_status(my_leaf, sleep_timer)
+    while update_status == 99:
+        print("Retrying")
+        update_status = update_battery_status(my_leaf, sleep_timer)
+
+
 # Main program
 
 print("Prepare Session")
@@ -118,9 +129,17 @@ time.sleep(1)
 print()
 print("Getting the latest information from the car")
 
-update_status = update_battery_status(leaf, sleepsecs)
+query_battery_status(leaf, sleep_timer)
+# update_status = update_battery_status(leaf, sleepsecs)
+# while update_status == 99:
+#     print("Retrying")
+#     update_status = update_battery_status(leaf, sleepsecs)
 
 latest_leaf_info = leaf.get_latest_battery_status()
 latest_date = latest_leaf_info.answer["BatteryStatusRecords"]["OperationDateAndTime"]
+
+if leaf_info.answer["BatteryStatusRecords"]["OperationDateAndTime"] == latest_date:
+    print("Didn't get new data from the car")
+
 print("latest_date=", latest_date)
 print_info(latest_leaf_info)
