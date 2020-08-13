@@ -23,7 +23,7 @@ hanken_medium_font = ImageFont.truetype(HankenGroteskMedium, int(20 * scale_size
 # Top and bottom y-coordinates for the white strip
 
 # battery_charge_bottom = int(inky_display.HEIGHT * (5.0 / 10.0))
-battery_charge_bottom = 28
+battery_charge_bottom = 26
 range_available_bottom = 56
 # y_bottom = battery_charge_bottom + int(inky_display.HEIGHT * (4.0 / 10.0))
 y_footer_top = inky_display.HEIGHT - 5
@@ -61,7 +61,7 @@ draw.text((batt_charge_x, batt_charge_y), "Battery Charge:", inky_display.WHITE,
 # Calculate the positioning and draw the "Available Range" text
 available_range_w, available_range_h = hanken_bold_font.getsize("Available Range:")
 available_range_x = 0 + padding
-available_range_y = 30 + padding
+available_range_y = 28 + padding
 draw.text((available_range_x, available_range_y), "Available Range:", inky_display.WHITE, font=hanken_bold_font)
 
 # Calculate the positioning and draw the name text
