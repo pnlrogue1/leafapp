@@ -170,7 +170,7 @@ draw = ImageDraw.Draw(img)
 # Load the fonts
 
 intuitive_font = ImageFont.truetype(Intuitive, int(20 * scale_size))
-hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(35 * scale_size))
+hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(20 * scale_size))
 hanken_medium_font = ImageFont.truetype(HankenGroteskMedium, int(16 * scale_size))
 
 # Top and bottom y-coordinates for the white strip
