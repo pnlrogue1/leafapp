@@ -77,7 +77,7 @@ draw.text((available_range_x, available_range_y), "Available Range:", inky_displ
 current_range = "74m"
 current_range_w, current_range_h = hanken_bold_font.getsize(current_range)
 current_range_x = int(available_range_w + 2)
-current_range_y = 0 + padding
+current_range_y = 28 + padding
 draw.text((current_range_x, current_range_y), current_range, inky_display.WHITE, font=hanken_bold_font)
 
 
