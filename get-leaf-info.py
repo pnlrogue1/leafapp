@@ -8,7 +8,7 @@ import argparse
 import pycarwings2
 from configparser import ConfigParser
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 from inky import InkyPHAT, InkyWHAT
 from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
 from font_intuitive import Intuitive
