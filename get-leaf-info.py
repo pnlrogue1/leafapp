@@ -201,7 +201,7 @@ draw.text((batt_charge_x, batt_charge_y), "Battery Charge:", inky_display.WHITE,
 
 # Calculate the positioning and draw the name text
 
-current_charge = "{}%".format(latest_leaf_info.battery_percent)
+current_charge = "{}%".format(round(latest_leaf_info.battery_percent))
 current_charge_w, current_charge_h = hanken_bold_font.getsize(current_charge)
 current_charge_x = int((inky_display.WIDTH - current_charge_w) / 2)
 current_charge_y = int(y_top + ((y_bottom - y_top - current_charge_h) / 2))
