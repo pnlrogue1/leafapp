@@ -41,6 +41,10 @@ elif args.type == "what":
     inky_display = InkyWHAT(colour)
     scale_size = 2.20
     padding = 15
+    print("")
+    print("This script does not currently support the InkyWHAT. Sorry!")
+    print("")
+    exit()
 
 # inky_display.set_rotation(180)
 
