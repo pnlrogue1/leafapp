@@ -85,6 +85,9 @@ def print_info(info):
     batteryPercent = "| Battery Percent            | {}%".format(round(
         info.battery_percent))
     print(batteryPercent)
+    print("| Range                      | {}km".format(
+        round(info.answer["BatteryStatusRecords"]["CruisingRangeAcOff"])))
+
     print("+----------------------------+-------------------+")
 
     # Options that I stopped using:
