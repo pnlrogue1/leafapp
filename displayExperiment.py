@@ -28,7 +28,7 @@ range_available_bottom = 56
 # y_bottom = battery_charge_bottom + int(inky_display.HEIGHT * (4.0 / 10.0))
 y_footer_top = inky_display.HEIGHT - 5
 
-# Draw the red, white, and red strips
+# Draw the stripes
 
 # Battery Charge stripe
 # for y in range(0, battery_charge_bottom):
@@ -51,20 +51,14 @@ for y in range(y_footer_top, inky_display.HEIGHT):
     for x in range(0, inky_display.width):
         img.putpixel((x, y), inky_display.RED)
 
+# Draw the text
+
 # Calculate the positioning and draw the "Battery Charge" text
 batt_charge_w, batt_charge_h = hanken_bold_font.getsize("Battery Charge:")
 # batt_charge_x = int((inky_display.WIDTH - batt_charge_w) / 2)
 batt_charge_x = 0 + padding
 batt_charge_y = 0 + padding
 draw.text((batt_charge_x, batt_charge_y), "Battery Charge:", inky_display.WHITE, font=hanken_bold_font)
-
-# Calculate the positioning and draw the "Available Range" text
-available_range_w, available_range_h = hanken_bold_font.getsize("Available Range:")
-available_range_x = 0 + padding
-available_range_y = 28 + padding
-draw.text((available_range_x, available_range_y), "Available Range:", inky_display.WHITE, font=hanken_bold_font)
-
-# Calculate the positioning and draw the name text
 
 current_charge = "100%"
 current_charge_w, current_charge_h = hanken_bold_font.getsize(current_charge)
@@ -74,7 +68,20 @@ current_charge_x = int(batt_charge_w + 2)
 current_charge_y = 0 + padding
 draw.text((current_charge_x, current_charge_y), current_charge, inky_display.WHITE, font=hanken_bold_font)
 
-# Display the completed name badge
+# Calculate the positioning and draw the "Available Range" text
+available_range_w, available_range_h = hanken_bold_font.getsize("Available Range:")
+available_range_x = 0 + padding
+available_range_y = 28 + padding
+draw.text((available_range_x, available_range_y), "Available Range:", inky_display.WHITE, font=hanken_bold_font)
+
+current_range = "74m"
+current_range_w, current_range_h = hanken_bold_font.getsize(current_range)
+current_range_x = int(available_range_w + 2)
+current_range_y = 0 + padding
+draw.text((current_range_x, current_range_y), current_range, inky_display.WHITE, font=hanken_bold_font)
+
+
+# Display the completed image
 
 inky_display.set_image(img)
 inky_display.show()
