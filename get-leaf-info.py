@@ -195,7 +195,7 @@ for y in range(y_bottom, inky_display.HEIGHT):
 # Calculate the positioning and draw the "Hello" text
 
 batt_charge_w, batt_charge_h = hanken_bold_font.getsize("Battery Charge:")
-batt_charge_x = int((inky_display.WIDTH - batt_charge_w) / 2)
+batt_charge_x = 0 + padding
 batt_charge_y = 0 + padding
 draw.text((batt_charge_x, batt_charge_y), "Battery Charge:", inky_display.WHITE, font=hanken_bold_font)
 
@@ -203,9 +203,9 @@ draw.text((batt_charge_x, batt_charge_y), "Battery Charge:", inky_display.WHITE,
 
 current_charge = "{}%".format(round(latest_leaf_info.battery_percent))
 current_charge_w, current_charge_h = hanken_bold_font.getsize(current_charge)
-current_charge_x = int((inky_display.WIDTH - current_charge_w) / 2)
-current_charge_y = int(y_top + ((y_bottom - y_top - current_charge_h) / 2))
-draw.text((current_charge_x, current_charge_y), current_charge, inky_display.BLACK, font=hanken_bold_font)
+current_charge_x = int(batt_charge_w + 2)
+current_charge_y = 0 + padding
+draw.text((current_charge_x, current_charge_y), current_charge, inky_display.WHITE, font=hanken_bold_font)
 
 # Display the completed name badge
 
