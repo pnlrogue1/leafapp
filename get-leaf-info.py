@@ -166,10 +166,6 @@ intuitive_font = ImageFont.truetype(Intuitive, int(22 * scale_size))
 hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(35 * scale_size))
 hanken_medium_font = ImageFont.truetype(HankenGroteskMedium, int(16 * scale_size))
 
-# Grab the name to be displayed
-
-name = args.name
-
 # Top and bottom y-coordinates for the white strip
 
 y_top = int(inky_display.HEIGHT * (5.0 / 10.0))
