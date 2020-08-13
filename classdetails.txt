@@ -1,0 +1,120 @@
+[('__class__', <class 'pycarwings2.responses.CarwingsLatestBatteryStatusResponse'>), ('__delattr__', <method-wrapper '__delattr__' of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__dict__', {'answer': {'status': 200, 'BatteryStatusRecords': {'OperationResult': 'START', 'OperationDateAndTime': '13-Aug-2020 15:21', 'BatteryStatus': {'BatteryChargingStatus': 'NOT_CHARGING', 'BatteryCapacity': '11', 'BatteryRemainingAmount': '11', 'BatteryRemainingAmountWH': '', 'BatteryRemainingAmountkWH': ''}, 'PluginState': 'NOT_CONNECTED', 'CruisingRangeAcOn': '115368.0', 'CruisingRangeAcOff': '120384.0', 'TimeRequiredToFull': {'HourRequiredToFull': '3', 'MinutesRequiredToFull': '0'}, 'TimeRequiredToFull200': {'HourRequiredToFull': '1', 'MinutesRequiredToFull': '30'}, 'NotificationDateAndTime': '2020/08/13 13:21', 'TargetDate': '2020/08/13 13:21'}}, 'battery_capacity': '11', 'battery_remaining_amount': '11', 'charging_status': 'NOT_CHARGING', 'is_charging': False, 'is_quick_charging': False, 'plugin_state': 'NOT_CONNECTED', 'is_connected': False, 'is_connected_to_quick_charger': False, 'cruising_range_ac_off_km': 120.384, 'cruising_range_ac_on_km': 115.368, 'time_to_full_trickle': datetime.timedelta(seconds=10800), 'time_to_full_l2': datetime.timedelta(seconds=5400), 'time_to_full_l2_6kw': None, 'battery_percent': 91.66666666666667, 'state_of_charge': None}), ('__dir__', <built-in method __dir__ of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__doc__', '
+        # not connected to a charger
+        {
+            "status":200,
+            "message":"success",
+            "BatteryStatusRecords":{
+                "OperationResult":"START",
+                "OperationDateAndTime":"Feb  9, 2016 11:09 PM",
+                "BatteryStatus":{
+                    "BatteryChargingStatus":"NOT_CHARGING",
+                    "BatteryCapacity":"12",
+                    "BatteryRemainingAmount":"3",
+                    "BatteryRemainingAmountWH":"",
+                    "BatteryRemainingAmountkWH":""
+                },
+                "PluginState":"NOT_CONNECTED",
+                "CruisingRangeAcOn":"39192.0",
+                "CruisingRangeAcOff":"39744.0",
+                "TimeRequiredToFull":{              # 120V
+                    "HourRequiredToFull":"18",
+                    "MinutesRequiredToFull":"30"
+                },
+                "TimeRequiredToFull200":{           # 240V, 3kW
+                    "HourRequiredToFull":"6",
+                    "MinutesRequiredToFull":"0"
+                },
+                "TimeRequiredToFull200_6kW":{       # 240V, 6kW
+                    "HourRequiredToFull":"4",
+                    "MinutesRequiredToFull":"0"
+                },
+                "NotificationDateAndTime":"2016/02/10 04:10",
+                "TargetDate":"2016/02/10 04:09"
+            }
+        }
+
+        # not connected to a charger - as at 21/01/2019 20:01 (for a 30kWh leaf)
+        {
+            "status":200,
+            "BatteryStatusRecords": {
+                "OperationResult":"START",
+                "OperationDateAndTime":"21-Jan-2019 13:29",
+                "BatteryStatus":{
+                    "BatteryChargingStatus":"NOT_CHARGING",
+                    "BatteryCapacity":"240",
+                    "BatteryRemainingAmount":"220",
+                    "BatteryRemainingAmountWH":"24480",
+                    "BatteryRemainingAmountkWH":"",
+                    "SOC":{
+                        "Value":"91"
+                    }
+                },
+                "PluginState":"NOT_CONNECTED",
+                "CruisingRangeAcOn":"146000",
+                "CruisingRangeAcOff":"168000",
+                "TimeRequiredToFull":{
+                    "HourRequiredToFull":"4",
+                    "MinutesRequiredToFull":"30"
+                },
+                "TimeRequiredToFull200":{
+                    "HourRequiredToFull":"3"
+                    ,"MinutesRequiredToFull":"0"
+                },
+                "TimeRequiredToFull200_6kW":{
+                    "HourRequiredToFull":"1",
+                    "MinutesRequiredToFull":"30"
+                },
+                "NotificationDateAndTime":"2019/01/21 13:29",
+                "TargetDate":"2019/01/21 13:29"
+            }
+        }
+
+
+        # connected to a quick charger
+        {
+            "status":200,
+            "message":"success",
+            "BatteryStatusRecords":{
+                "OperationResult":"START",
+                "OperationDateAndTime":"Feb 14, 2016 03:28 PM",
+                "BatteryStatus":{
+                    "BatteryChargingStatus":"RAPIDLY_CHARGING",
+                    "BatteryCapacity":"12",
+                    "BatteryRemainingAmount":"11",
+                    "BatteryRemainingAmountWH":"",
+                    "BatteryRemainingAmountkWH":""
+                },
+                "PluginState":"QC_CONNECTED",
+                "CruisingRangeAcOn":"107136.0",
+                "CruisingRangeAcOff":"115776.0",
+                "NotificationDateAndTime":"2016/02/14 20:28",
+                "TargetDate":"2016/02/14 20:28"
+            }
+        }
+
+        # connected to a charging station
+        {
+          "status": 200,
+          "message": "success",
+          "BatteryStatusRecords": {
+            "OperationResult": "START",
+            "OperationDateAndTime": "Feb 19, 2016 12:12 PM",
+            "BatteryStatus": {
+              "BatteryChargingStatus": "NORMAL_CHARGING",
+              "BatteryCapacity": "12",
+              "BatteryRemainingAmount": "12",
+              "BatteryRemainingAmountWH": "",
+              "BatteryRemainingAmountkWH": ""
+            },
+            "PluginState": "CONNECTED",
+            "CruisingRangeAcOn": "132000.0",
+            "CruisingRangeAcOff": "134000.0",
+            "TimeRequiredToFull200_6kW": {
+              "HourRequiredToFull": "0",
+              "MinutesRequiredToFull": "40"
+            },
+            "NotificationDateAndTime": "2016/02/19 17:12",
+            "TargetDate": "2016/02/19 17:12"
+          }
+        }
+    '), ('__eq__', <method-wrapper '__eq__' of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__format__', <built-in method __format__ of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__ge__', <method-wrapper '__ge__' of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__getattribute__', <method-wrapper '__getattribute__' of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__gt__', <method-wrapper '__gt__' of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__hash__', <method-wrapper '__hash__' of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__init__', <bound method CarwingsLatestBatteryStatusResponse.__init__ of <pycarwings2.responses.CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>>), ('__init_subclass__', <built-in method __init_subclass__ of type object at 0x231b220>), ('__le__', <method-wrapper '__le__' of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__lt__', <method-wrapper '__lt__' of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__module__', 'pycarwings2.responses'), ('__ne__', <method-wrapper '__ne__' of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__new__', <built-in method __new__ of type object at 0x902880>), ('__reduce__', <built-in method __reduce__ of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__reduce_ex__', <built-in method __reduce_ex__ of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__repr__', <method-wrapper '__repr__' of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__setattr__', <method-wrapper '__setattr__' of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__sizeof__', <built-in method __sizeof__ of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__str__', <method-wrapper '__str__' of CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>), ('__subclasshook__', <built-in method __subclasshook__ of type object at 0x231b220>), ('__weakref__', None), ('_set_cruising_ranges', <bound method CarwingsResponse._set_cruising_ranges of <pycarwings2.responses.CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>>), ('_set_timestamp', <bound method CarwingsResponse._set_timestamp of <pycarwings2.responses.CarwingsLatestBatteryStatusResponse object at 0x7fd65429a1c0>>), ('answer', {'status': 200, 'BatteryStatusRecords': {'OperationResult': 'START', 'OperationDateAndTime': '13-Aug-2020 15:21', 'BatteryStatus': {'BatteryChargingStatus': 'NOT_CHARGING', 'BatteryCapacity': '11', 'BatteryRemainingAmount': '11', 'BatteryRemainingAmountWH': '', 'BatteryRemainingAmountkWH': ''}, 'PluginState': 'NOT_CONNECTED', 'CruisingRangeAcOn': '115368.0', 'CruisingRangeAcOff': '120384.0', 'TimeRequiredToFull': {'HourRequiredToFull': '3', 'MinutesRequiredToFull': '0'}, 'TimeRequiredToFull200': {'HourRequiredToFull': '1', 'MinutesRequiredToFull': '30'}, 'NotificationDateAndTime': '2020/08/13 13:21', 'TargetDate': '2020/08/13 13:21'}}), ('battery_capacity', '11'), ('battery_percent', 91.66666666666667), ('battery_remaining_amount', '11'), ('charging_status', 'NOT_CHARGING'), ('cruising_range_ac_off_km', 120.384), ('cruising_range_ac_on_km', 115.368), ('is_charging', False), ('is_connected', False), ('is_connected_to_quick_charger', False), ('is_quick_charging', False), ('plugin_state', 'NOT_CONNECTED'), ('state_of_charge', None), ('time_to_full_l2', datetime.timedelta(seconds=5400)), ('time_to_full_l2_6kw', None), ('time_to_full_trickle', datetime.timedelta(seconds=10800))]
