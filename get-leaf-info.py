@@ -20,9 +20,9 @@ sleep_timer = 10  # Time to wait before polling Nissan servers for update
 # Command line arguments to set Inky display type and colour
 
 argParser = argparse.ArgumentParser()
-argParser.add_argument('--type', '-t', type=str, required=True,
+argParser.add_argument('--type', '-t', type=str, required=True, default="phat",
                        choices=["what", "phat", "skip"], help="type of display. Use 'skip' to bypass the display")
-argParser.add_argument('--colour', '-c', type=str, required=False, default="black",
+argParser.add_argument('--colour', '-c', type=str, required=False, default="red",
                        choices=["red", "black", "yellow"], help="ePaper display colour")
 args = argParser.parse_args()
 
