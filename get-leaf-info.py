@@ -72,9 +72,11 @@ def print_info(info):
     batteryPercent = "| Battery Percent            | {}%".format(round(
         info.battery_percent))
     print(batteryPercent)
+    range_km = float(info.answer["BatteryStatusRecords"]["CruisingRangeAcOff"]) / 1000
     print("| Range                      | {}km".format(
-        round(info.answer["BatteryStatusRecords"]["CruisingRangeAcOff"])))
-
+        round(range_km)))
+    print("| Range                      | {} miles".format(
+        round(range_km * 0.62137)))
     print("+----------------------------+-------------------+")
 
     # Options that I stopped using:
