@@ -22,18 +22,25 @@ hanken_medium_font = ImageFont.truetype(HankenGroteskMedium, int(20 * scale_size
 
 # Top and bottom y-coordinates for the white strip
 
-# batter_charge_bottom = int(inky_display.HEIGHT * (5.0 / 10.0))
-batter_charge_bottom = 56
-y_bottom = batter_charge_bottom + int(inky_display.HEIGHT * (4.0 / 10.0))
+# battery_charge_bottom = int(inky_display.HEIGHT * (5.0 / 10.0))
+battery_charge_bottom = 28
+range_available_bottom = 56
+y_bottom = battery_charge_bottom + int(inky_display.HEIGHT * (4.0 / 10.0))
 
 # Draw the red, white, and red strips
 
-# for y in range(0, batter_charge_bottom):
-for y in range(0, batter_charge_bottom):
+# Battery Charge stripe
+# for y in range(0, battery_charge_bottom):
+for y in range(0, battery_charge_bottom):
     for x in range(0, inky_display.width):
-        img.putpixel((x, y), inky_display.RED)
+        img.putpixel((x, y), inky_display.BLACK)
 
-for y in range(batter_charge_bottom, y_bottom):
+# Available Range stripe
+for y in range(battery_charge_bottom, range_available_bottom):
+    for x in range(0, inky_display.width):
+        img.putpixel((x, y), inky_display.BLACK)
+
+for y in range(range_available_bottom, y_bottom):
     for x in range(0, inky_display.width):
         img.putpixel((x, y), inky_display.WHITE)
 
@@ -55,7 +62,7 @@ current_charge = "100%"
 current_charge_w, current_charge_h = hanken_bold_font.getsize(current_charge)
 # current_charge_x = int((inky_display.WIDTH - current_charge_w) / 2)
 current_charge_x = int(batt_charge_w + 2)
-# current_charge_y = int(batter_charge_bottom + ((y_bottom - batter_charge_bottom - current_charge_h) / 2))
+# current_charge_y = int(battery_charge_bottom + ((y_bottom - battery_charge_bottom - current_charge_h) / 2))
 current_charge_y = 0 + padding
 draw.text((current_charge_x, current_charge_y), current_charge, inky_display.WHITE, font=hanken_bold_font)
 
