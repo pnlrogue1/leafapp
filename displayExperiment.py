@@ -26,7 +26,7 @@ hanken_medium_font = ImageFont.truetype(HankenGroteskMedium, int(20 * scale_size
 battery_charge_bottom = 28
 range_available_bottom = 56
 # y_bottom = battery_charge_bottom + int(inky_display.HEIGHT * (4.0 / 10.0))
-y_footer_top = 5
+y_footer_top = inky_display.HEIGHT - 5
 
 # Draw the red, white, and red strips
 
