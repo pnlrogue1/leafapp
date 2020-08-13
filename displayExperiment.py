@@ -17,8 +17,8 @@ draw = ImageDraw.Draw(img)
 # Load the fonts
 
 intuitive_font = ImageFont.truetype(Intuitive, int(20 * scale_size))
-hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(20 * scale_size))
-hanken_medium_font = ImageFont.truetype(HankenGroteskMedium, int(16 * scale_size))
+hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(21 * scale_size))
+hanken_medium_font = ImageFont.truetype(HankenGroteskMedium, int(20 * scale_size))
 
 # Top and bottom y-coordinates for the white strip
 
@@ -49,7 +49,7 @@ draw.text((batt_charge_x, batt_charge_y), "Battery Charge:", inky_display.WHITE,
 
 # Calculate the positioning and draw the name text
 
-current_charge = "92%"
+current_charge = "100%"
 current_charge_w, current_charge_h = hanken_bold_font.getsize(current_charge)
 # current_charge_x = int((inky_display.WIDTH - current_charge_w) / 2)
 current_charge_x = int(batt_charge_w + 2)
