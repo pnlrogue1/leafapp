@@ -8,11 +8,6 @@ import argparse
 import pycarwings2
 from configparser import ConfigParser
 
-from PIL import Image, ImageDraw, ImageFont
-from inky import InkyPHAT, InkyWHAT
-from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
-from font_intuitive import Intuitive
-
 configParser = ConfigParser()
 candidates = ['config.ini', 'my_config.ini']
 found = configParser.read(candidates)
@@ -26,18 +21,22 @@ sleep_timer = 10  # Time to wait before polling Nissan servers for update
 
 argParser = argparse.ArgumentParser()
 argParser.add_argument('--type', '-t', type=str, required=True,
-                       choices=["what", "phat"], help="type of display")
-argParser.add_argument('--colour', '-c', type=str, required=True,
+                       choices=["what", "phat", "skip"], help="type of display. Use 'skip' to bypass the display")
+argParser.add_argument('--colour', '-c', type=str, required=False, default="black",
                        choices=["red", "black", "yellow"], help="ePaper display colour")
 args = argParser.parse_args()
 
-# Set up the correct display and scaling factors
+if args.type != "skip":
+    from PIL import Image, ImageDraw, ImageFont
+    from inky import InkyPHAT, InkyWHAT
+    from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
+    from font_intuitive import Intuitive
 
-if args.type == "what":
-    print("")
-    print("This script does not currently support the InkyWHAT. Sorry!")
-    print("")
-    exit()
+    if args.type == "what":
+        print("")
+        print("This script does not currently support the InkyWHAT. Sorry!")
+        print("")
+        exit()
 
 
 def update_battery_status(leaf, wait_time=1):
@@ -143,6 +142,8 @@ print("latest_date=", latest_date)
 print_info(latest_leaf_info)
 
 # Now for the e-ink display...
+if args.type == "skip":
+    exit()
 
 colour = args.colour
 
