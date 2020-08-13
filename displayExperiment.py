@@ -27,7 +27,8 @@ y_bottom = y_top + int(inky_display.HEIGHT * (4.0 / 10.0))
 
 # Draw the red, white, and red strips
 
-for y in range(0, y_top):
+# for y in range(0, y_top):
+for y in range(0, 20):
     for x in range(0, inky_display.width):
         img.putpixel((x, y), inky_display.RED)
 
