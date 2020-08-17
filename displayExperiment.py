@@ -9,6 +9,8 @@ scale_size = 1
 padding = 0
 inky_display.set_border(inky_display.WHITE)
 
+current_charge_percent = "49"
+current_crange_miles = "74"
 # Create a new canvas to draw on
 
 img = Image.new("P", (inky_display.WIDTH, inky_display.HEIGHT))
@@ -30,16 +32,23 @@ y_footer_top = inky_display.HEIGHT - 5
 
 # Draw the stripes
 
+if int(current_charge_percent) >= 50:
+    charge_range_background = inky_display.WHITE
+    charge_range_text = inky_display.BLACK
+else:
+    charge_range_background = inky_display.RED
+    charge_range_text = inky_display.WHITE
+
 # Battery Charge stripe
 # for y in range(0, battery_charge_bottom):
 for y in range(0, battery_charge_bottom):
     for x in range(0, inky_display.width):
-        img.putpixel((x, y), inky_display.BLACK)
+        img.putpixel((x, y), charge_range_background)
 
 # Available Range stripe
 for y in range(battery_charge_bottom, range_available_bottom):
     for x in range(0, inky_display.width):
-        img.putpixel((x, y), inky_display.BLACK)
+        img.putpixel((x, y), charge_range_background)
 
 # White strip
 for y in range(range_available_bottom, y_footer_top):
@@ -58,27 +67,27 @@ batt_charge_w, batt_charge_h = hanken_bold_font.getsize("Battery Charge:")
 # batt_charge_x = int((inky_display.WIDTH - batt_charge_w) / 2)
 batt_charge_x = 0 + padding
 batt_charge_y = 0 + padding
-draw.text((batt_charge_x, batt_charge_y), "Battery Charge:", inky_display.WHITE, font=hanken_bold_font)
+draw.text((batt_charge_x, batt_charge_y), "Battery Charge:", charge_range_text, font=hanken_bold_font)
 
-current_charge = "100%"
+current_charge = "{}%".format(current_charge_percent)
 current_charge_w, current_charge_h = hanken_bold_font.getsize(current_charge)
 # current_charge_x = int((inky_display.WIDTH - current_charge_w) / 2)
 current_charge_x = int(batt_charge_w + 2)
 # current_charge_y = int(battery_charge_bottom + ((y_footer_top - battery_charge_bottom - current_charge_h) / 2))
 current_charge_y = 0 + padding
-draw.text((current_charge_x, current_charge_y), current_charge, inky_display.WHITE, font=hanken_bold_font)
+draw.text((current_charge_x, current_charge_y), current_charge, charge_range_text, font=hanken_bold_font)
 
 # Calculate the positioning and draw the "Available Range" text
+current_range = "{}m".format(current_crange_miles)
 available_range_w, available_range_h = hanken_bold_font.getsize("Available Range:")
 available_range_x = 0 + padding
 available_range_y = 28 + padding
-draw.text((available_range_x, available_range_y), "Available Range:", inky_display.WHITE, font=hanken_bold_font)
+draw.text((available_range_x, available_range_y), "Available Range:", charge_range_text, font=hanken_bold_font)
 
-current_range = "74m"
 current_range_w, current_range_h = hanken_bold_font.getsize(current_range)
 current_range_x = int(available_range_w + 2)
 current_range_y = 28 + padding
-draw.text((current_range_x, current_range_y), current_range, inky_display.WHITE, font=hanken_bold_font)
+draw.text((current_range_x, current_range_y), current_range, charge_range_text, font=hanken_bold_font)
 
 
 # Display the completed image
