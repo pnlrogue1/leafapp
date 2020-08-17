@@ -35,9 +35,13 @@ y_footer_top = inky_display.HEIGHT - 5
 if int(current_charge_percent) >= 50:
     charge_range_background = inky_display.WHITE
     charge_range_text = inky_display.BLACK
+    charge_meter_colour = inky_display.BLACK
 else:
     charge_range_background = inky_display.RED
     charge_range_text = inky_display.WHITE
+    charge_meter_colour = inky_display.RED
+
+charge_meter_width = round(inky_display.width * (int(current_charge_percent) / 100))
 
 # Battery Charge stripe
 # for y in range(0, battery_charge_bottom):
@@ -57,8 +61,8 @@ for y in range(range_available_bottom, y_footer_top):
 
 # Footer
 for y in range(y_footer_top, inky_display.HEIGHT):
-    for x in range(0, inky_display.width):
-        img.putpixel((x, y), inky_display.RED)
+    for x in range(0, charge_meter_width):
+        img.putpixel((x, y), charge_meter_colour)
 
 # Draw the text
 
