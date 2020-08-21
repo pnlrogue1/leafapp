@@ -33,7 +33,10 @@ hanken_medium_font = ImageFont.truetype(HankenGroteskMedium, int(20 * scale_size
 battery_charge_bottom = 26
 range_available_bottom = 56
 # y_bottom = battery_charge_bottom + int(inky_display.HEIGHT * (4.0 / 10.0))
-y_footer_top = inky_display.HEIGHT - 5
+battery_gauge_top = inky_display.HEIGHT - 8
+gauge_mark_bottom = battery_gauge_top - 2
+gauge_mark_top = gauge_mark_bottom - 4
+gauge_mark_major_top = gauge_mark_top - 4
 
 # Draw the stripes
 
@@ -46,7 +49,7 @@ else:
     charge_range_text_colour = inky_display.WHITE
     charge_meter_colour = inky_display.RED
 
-charge_meter_width = round(inky_display.width * (int(current_charge_percent) / 100))
+battery_gauge_width = round(inky_display.width * (int(current_charge_percent) / 100))
 
 # Battery Charge stripe
 # for y in range(0, battery_charge_bottom):
@@ -59,14 +62,14 @@ for y in range(battery_charge_bottom, range_available_bottom):
     for x in range(0, inky_display.width):
         img.putpixel((x, y), charge_range_background)
 
-# White strip
-for y in range(range_available_bottom, y_footer_top):
+# Date/Time Background
+for y in range(range_available_bottom, battery_gauge_top):
     for x in range(0, inky_display.width):
         img.putpixel((x, y), inky_display.WHITE)
 
-# Footer
-for y in range(y_footer_top, inky_display.HEIGHT):
-    for x in range(0, charge_meter_width):
+# Battery Gauge
+for y in range(battery_gauge_top, inky_display.HEIGHT):
+    for x in range(0, battery_gauge_width):
         img.putpixel((x, y), charge_meter_colour)
 
 # Draw the text
@@ -82,7 +85,7 @@ current_charge = "{}%".format(current_charge_percent)
 current_charge_w, current_charge_h = hanken_bold_font.getsize(current_charge)
 # current_charge_x = int((inky_display.WIDTH - current_charge_w) / 2)
 current_charge_x = int(batt_charge_w + 2)
-# current_charge_y = int(battery_charge_bottom + ((y_footer_top - battery_charge_bottom - current_charge_h) / 2))
+# current_charge_y = int(battery_charge_bottom + ((battery_gauge_top - battery_charge_bottom - current_charge_h) / 2))
 current_charge_y = 0 + padding
 draw.text((current_charge_x, current_charge_y), current_charge, charge_range_text_colour, font=hanken_bold_font)
 
@@ -101,6 +104,16 @@ draw.text((current_range_x, current_range_y), current_range, charge_range_text_c
 datetime_range_x = 0 + padding
 datetime_range_y = range_available_bottom + padding
 draw.text((datetime_range_x, datetime_range_y), corrected_date.strftime("%d %b %I:%M %p"), inky_display.BLACK, font=hanken_bold_font)
+
+for x in range(1, 4):
+    gauge_mark_x = round(inky_display.WIDTH / 4 * x)
+    for gauge_mark_y in range(gauge_mark_major_top, gauge_mark_bottom):
+        img.putpixel((gauge_mark_x, gauge_mark_y), inky_display.BLACK)
+
+for x in range(1, 12):
+    gauge_mark_x = round(inky_display.WIDTH / 12 * x)
+    for gauge_mark_y in range(gauge_mark_top, gauge_mark_bottom):
+        img.putpixel((gauge_mark_x, gauge_mark_y), inky_display.BLACK)
 
 # Display the completed image
 
