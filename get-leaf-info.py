@@ -206,7 +206,10 @@ hanken_medium_font = ImageFont.truetype(HankenGroteskMedium, int(20 * scale_size
 battery_charge_bottom = 26
 range_available_bottom = 56
 # y_bottom = battery_charge_bottom + int(inky_display.HEIGHT * (4.0 / 10.0))
-y_footer_top = inky_display.HEIGHT - 5
+battery_gauge_top = inky_display.HEIGHT - 8
+gauge_mark_bottom = battery_gauge_top - 2
+gauge_mark_top = gauge_mark_bottom - 4
+gauge_mark_major_top = gauge_mark_top - 4
 
 # Draw the stripes
 
@@ -219,7 +222,7 @@ else:
     charge_range_text_colour = inky_display.WHITE
     charge_meter_colour = inky_display.RED
 
-charge_meter_width = round(inky_display.width * (latest_leaf_info.battery_percent / 100))
+battery_gauge_width = round(inky_display.width * (latest_leaf_info.battery_percent / 100))
 
 # Battery Charge stripe
 # for y in range(0, battery_charge_bottom):
@@ -233,13 +236,13 @@ for y in range(battery_charge_bottom, range_available_bottom):
         img.putpixel((x, y), charge_range_background)
 
 # White strip
-for y in range(range_available_bottom, y_footer_top):
+for y in range(range_available_bottom, battery_gauge_top):
     for x in range(0, inky_display.width):
         img.putpixel((x, y), inky_display.WHITE)
 
 # Footer
-for y in range(y_footer_top, inky_display.HEIGHT):
-    for x in range(0, charge_meter_width):
+for y in range(battery_gauge_top, inky_display.HEIGHT):
+    for x in range(0, battery_gauge_width):
         img.putpixel((x, y), charge_meter_colour)
 
 # Draw the text
@@ -257,7 +260,7 @@ current_charge = "{}%".format(round(latest_leaf_info.battery_percent))
 current_charge_w, current_charge_h = hanken_bold_font.getsize(current_charge)
 # current_charge_x = int((inky_display.WIDTH - current_charge_w) / 2)
 current_charge_x = int(batt_charge_w + 2)
-# current_charge_y = int(battery_charge_bottom + ((y_footer_top - battery_charge_bottom - current_charge_h) / 2))
+# current_charge_y = int(battery_charge_bottom + ((battery_gauge_top - battery_charge_bottom - current_charge_h) / 2))
 current_charge_y = 0 + padding
 draw.text((current_charge_x, current_charge_y), current_charge, charge_range_text_colour, font=hanken_bold_font)
 
