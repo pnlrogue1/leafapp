@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
-import time
 import logging
+import re
 import sys
+import time
+from datetime import datetime, timedelta
 
 import argparse
 import pycarwings2
@@ -50,7 +52,7 @@ def update_battery_status(leaf, wait_time=1):
         print("Waiting {0} seconds".format(sleep_timer))
         time.sleep(wait_time)
         status = leaf.get_status_from_update(key)
-        if status is None and total_wait >= 60:
+        if status is None and total_wait >= 40:
             status = 99
     return status
 
@@ -97,7 +99,8 @@ def print_info(info):
 def query_battery_status(my_leaf, sleep_timer):
     update_status = update_battery_status(my_leaf, sleep_timer)
     while update_status == 99:
-        print("Retrying")
+        print("Waiting 10 seconds and retrying")
+        time.sleep(10)
         update_status = update_battery_status(my_leaf, sleep_timer)
 
 
@@ -123,25 +126,49 @@ time.sleep(1)
 print()
 print("Getting the latest information from the car")
 
-query_battery_status(leaf, sleep_timer)
+# query_battery_status(leaf, sleep_timer)
 # update_status = update_battery_status(leaf, sleepsecs)
 # while update_status == 99:
 #     print("Retrying")
 #     update_status = update_battery_status(leaf, sleepsecs)
 
-latest_leaf_info = leaf.get_latest_battery_status()
-latest_date = latest_leaf_info.answer["BatteryStatusRecords"]["OperationDateAndTime"]
+# latest_leaf_info = leaf.get_latest_battery_status()
+# latest_date = latest_leaf_info.answer["BatteryStatusRecords"]["OperationDateAndTime"]
+latest_date = start_date
+print("")
 
 while leaf_info.answer["BatteryStatusRecords"]["OperationDateAndTime"] == latest_date:
-    print("")
-    print("Didn't get new data from the car. Retrying...")
-    print("")
+    print("Contacting the car...")
     query_battery_status(leaf, sleep_timer)
     latest_leaf_info = leaf.get_latest_battery_status()
     latest_date = latest_leaf_info.answer["BatteryStatusRecords"]["OperationDateAndTime"]
 
 print("latest_date=", latest_date)
 print_info(latest_leaf_info)
+# Parse out the date
+parsed_date = re.split('-| |:', latest_date) # Use re to split on "-", " " & ":"
+month_converter = {
+    "Jan": 1,
+    "Feb": 2,
+    "Mar": 3,
+    "Apr": 4,
+    "May": 5,
+    "Jun": 6,
+    "Jul": 7,
+    "Aug": 8,
+    "Sep": 9,
+    "Oct": 10,
+    "Nov": 11,
+    "Dec": 12
+}
+compiled_date = datetime(
+    int(parsed_date[2]),
+    month_converter[parsed_date[1]],
+    int(parsed_date[0]),
+    int(parsed_date[3]),
+    int(parsed_date[4]),
+)
+corrected_date = compiled_date - timedelta(hours = 1)
 
 # Now for the e-ink display...
 if args.type == "skip":
@@ -185,11 +212,11 @@ y_footer_top = inky_display.HEIGHT - 5
 
 if latest_leaf_info.battery_percent >= 50:
     charge_range_background = inky_display.WHITE
-    charge_range_text = inky_display.BLACK
+    charge_range_text_colour = inky_display.BLACK
     charge_meter_colour = inky_display.BLACK
 else:
     charge_range_background = inky_display.RED
-    charge_range_text = inky_display.WHITE
+    charge_range_text_colour = inky_display.WHITE
     charge_meter_colour = inky_display.RED
 
 charge_meter_width = round(inky_display.width * (latest_leaf_info.battery_percent / 100))
@@ -222,7 +249,7 @@ batt_charge_w, batt_charge_h = hanken_bold_font.getsize("Battery Charge:")
 # batt_charge_x = int((inky_display.WIDTH - batt_charge_w) / 2)
 batt_charge_x = 0 + padding
 batt_charge_y = 0 + padding
-draw.text((batt_charge_x, batt_charge_y), "Battery Charge:", charge_range_text, font=hanken_bold_font)
+draw.text((batt_charge_x, batt_charge_y), "Battery Charge:", charge_range_text_colour, font=hanken_bold_font)
 
 # Calculate the positioning and draw the name text
 
@@ -232,13 +259,13 @@ current_charge_w, current_charge_h = hanken_bold_font.getsize(current_charge)
 current_charge_x = int(batt_charge_w + 2)
 # current_charge_y = int(battery_charge_bottom + ((y_footer_top - battery_charge_bottom - current_charge_h) / 2))
 current_charge_y = 0 + padding
-draw.text((current_charge_x, current_charge_y), current_charge, charge_range_text, font=hanken_bold_font)
+draw.text((current_charge_x, current_charge_y), current_charge, charge_range_text_colour, font=hanken_bold_font)
 
 # Calculate the positioning and draw the "Available Range" text
 available_range_w, available_range_h = hanken_bold_font.getsize("Available Range:")
 available_range_x = 0 + padding
 available_range_y = 28 + padding
-draw.text((available_range_x, available_range_y), "Available Range:", charge_range_text, font=hanken_bold_font)
+draw.text((available_range_x, available_range_y), "Available Range:", charge_range_text_colour, font=hanken_bold_font)
 
 current_range = "{}m".format(
     round((float(latest_leaf_info.answer["BatteryStatusRecords"]["CruisingRangeAcOff"]) / 1000) * 0.62137)
@@ -246,7 +273,11 @@ current_range = "{}m".format(
 current_range_w, current_range_h = hanken_bold_font.getsize(current_range)
 current_range_x = int(available_range_w + 2)
 current_range_y = 28 + padding
-draw.text((current_range_x, current_range_y), current_range, charge_range_text, font=hanken_bold_font)
+draw.text((current_range_x, current_range_y), current_range, charge_range_text_colour, font=hanken_bold_font)
+
+datetime_range_x = 0 + padding
+datetime_range_y = range_available_bottom + padding
+draw.text((datetime_range_x, datetime_range_y), corrected_date.strftime("%d %b %I:%M %p"), inky_display.BLACK, font=hanken_bold_font)
 
 # Display the completed image
 
