@@ -81,6 +81,8 @@ batt_charge_x = 0 + padding
 batt_charge_y = 0 + padding
 draw.text((batt_charge_x, batt_charge_y), "Battery Charge:", charge_range_text_colour, font=hanken_bold_font)
 
+# Calculate the positioning and draw the name text
+
 current_charge = "{}%".format(current_charge_percent)
 current_charge_w, current_charge_h = hanken_bold_font.getsize(current_charge)
 # current_charge_x = int((inky_display.WIDTH - current_charge_w) / 2)
