@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import logging
 import re
@@ -9,6 +9,8 @@ from datetime import datetime, timedelta
 import argparse
 import pycarwings2
 from configparser import ConfigParser
+
+# Parse the config file
 
 configParser = ConfigParser()
 candidates = ['config.ini', 'my_config.ini']
@@ -39,7 +41,6 @@ if args.type != "skip":
         print("This script does not currently support the InkyWHAT. Sorry!")
         print("")
         exit()
-
 
 def update_battery_status(leaf, wait_time=1):
     total_wait = 0
@@ -104,7 +105,7 @@ def query_battery_status(my_leaf, sleep_timer):
         update_status = update_battery_status(my_leaf, sleep_timer)
 
 
-# Main program
+# Fetch information from the car
 
 print("Prepare Session")
 s = pycarwings2.Session(username, password, region)
@@ -240,7 +241,7 @@ for y in range(range_available_bottom, battery_gauge_top):
     for x in range(0, inky_display.width):
         img.putpixel((x, y), inky_display.WHITE)
 
-# Footer
+# Battery Gauge
 for y in range(battery_gauge_top, inky_display.HEIGHT):
     for x in range(0, battery_gauge_width):
         img.putpixel((x, y), charge_meter_colour)
@@ -281,6 +282,16 @@ draw.text((current_range_x, current_range_y), current_range, charge_range_text_c
 datetime_range_x = 0 + padding
 datetime_range_y = range_available_bottom + padding
 draw.text((datetime_range_x, datetime_range_y), corrected_date.strftime("%d %b %I:%M %p"), inky_display.BLACK, font=hanken_bold_font)
+
+for x in range(1, 4):
+    gauge_mark_x = round(inky_display.WIDTH / 4 * x)
+    for gauge_mark_y in range(gauge_mark_major_top, gauge_mark_bottom):
+        img.putpixel((gauge_mark_x, gauge_mark_y), inky_display.BLACK)
+
+for x in range(1, 12):
+    gauge_mark_x = round(inky_display.WIDTH / 12 * x)
+    for gauge_mark_y in range(gauge_mark_top, gauge_mark_bottom):
+        img.putpixel((gauge_mark_x, gauge_mark_y), inky_display.BLACK)
 
 # Display the completed image
 
